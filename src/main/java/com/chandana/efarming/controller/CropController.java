@@ -134,4 +134,12 @@ public class CropController {
 
         return cropRepository.save(existingCrop);
     }
+
+    @GetMapping("/farmer/{farmerId}")
+    public List<Crop> getCropsByFarmer(@PathVariable Long farmerId) {
+        User farmer = userRepository.findById(farmerId)
+                .orElseThrow(() -> new RuntimeException("Farmer not found"));
+        return cropRepository.findByFarmer(farmer);
+    }
+
 }
